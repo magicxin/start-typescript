@@ -1,0 +1,24 @@
+html {
+  font-size:14px;
+}
+p {
+  margin:0;
+  padding:0;
+}
+* {
+  box-sizing: border-box;
+}
+a:hover, a:visited, a:link, a:active {
+  text-decoration: none;
+}
+h1,h2,h3,h4,h5,h6 {
+  padding:0;
+  margin:0;
+  font-size:1rem;
+  font-weight: 100;
+}
+ul,li{ padding:0;margin:0;list-style:none }
+.clearfix {
+  overflow: auto;
+  zoom: 1;
+}
