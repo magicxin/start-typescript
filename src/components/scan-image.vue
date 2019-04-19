@@ -2,18 +2,18 @@
   <div class="image-container">
     <div class="img-content" v-if="hasSmall">
       <div class="item-content" v-for="(item,index) in smallImage">
-        <img class="small" :src="item" @click="goImageReader(index,smallImage)" />
+        <img class="small" :src="item" @click.stop="goImageReader(index,smallImage)" />
       </div>
     </div>
     <div class="img-content" v-if="!hasSmall">
       <div class="item-content" v-for="(item,index) in bigImage">
-        <img class="small" :src="item" @click="goImageReader(index,bigImage)" />
+        <img class="small" :src="item" @click.stop="goImageReader(index,bigImage)" />
       </div>
     </div>
     
     <!--start 查看大图 -->
     <div v-if="showBig" class="big-image">
-      <div class="reader-content" @click="closeBig">
+      <div class="reader-content" @click.stop="closeBig">
         <img :src="urls[count]" @touchstart="tapStart" @touchmove="tapMove" @touchend="tapEnd"/>
       </div>
     </div>
@@ -25,22 +25,21 @@
    * @author suixin
    * @params smallImage{Array} bigImage{Array}
    * @requires false true
-   * 
    * @example <magic-image :bigImage="itemData.images"></magic-image>
-   * 
    * */
   import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
   @Component
   export default class ScanImage extends Vue {
     private hasSmall: boolean = false;
     private showBig: boolean = false;
-    private count: string = '';
-    private urls: string = '';
+    private count: number = 0;
+    private startX: number = 0;
+    private urls: string[] = [];
     private frontOrNext: string = '';
     @Prop() private smallImage?: string[];
     @Prop({required: false}) private bigImage!: string[];
     @Watch('smallImage')
-    private onImageChange(newV, oldV) {
+    private onImageChange(newV: string[], oldV: string[]) {
       if (newV) {
         this.hasSmall = true;
       } else {
@@ -49,41 +48,40 @@
     }
     private goImageReader(count: number, urls: string[]) {
       this.showBig = true;
-      document.querySelector('body').style.overflow = 'hidden';
-      document.getElementById('$$$scroll').style.overflow = 'hidden';
+      document.querySelector('body')!.style.overflow = 'hidden';
+      document.getElementById('$$$scroll')!.style.overflow = 'hidden';
       this.count = count;
       this.urls = urls;
     }
-    private closeBig(){
+    private closeBig() {
       this.showBig = false;
-      document.querySelector('body').style.overflow = 'visible';
-      document.querySelector('html').style.overflow = 'visible';
-      document.getElementById('$$$scroll').style.overflow = 'visible';
-      console.log(window.scrollY);
+      document.querySelector('body')!.style.overflow = 'visible';
+      document.querySelector('html')!.style.overflow = 'visible';
+      document.getElementById('$$$scroll')!.style.overflow = 'visible';
     }
-    private tapStart(e: any){
+    private tapStart(e: any) {
       this.startX = e.targetTouches[0].screenX;
     }
-    private tapMove(e: any){
+    private tapMove(e: any) {
       if (e.targetTouches[0].screenX - this.startX < -50 ) {
-        this.frontOrNext = 'next'
+        this.frontOrNext = 'next';
         } else if (e.targetTouches[0].screenX - this.startX > 50 ) {
           this.frontOrNext = 'front';
         } else {
           this.frontOrNext = '';
         }
     }
-    private tapEnd(e: any){
-      if (this.frontOrNext == 'next' && +this.count >= this.urls.length-1) {
+    private tapEnd(e: any) {
+      if (this.frontOrNext === 'next' && +this.count >= this.urls.length - 1) {
         // this.$.toast('已经是最后一张');
         }
-      if (this.frontOrNext == 'next' && +this.count < this.urls.length-1) {
+      if (this.frontOrNext === 'next' && +this.count < this.urls.length - 1) {
         this.count = +this.count + 1;
       }
-      if(this.frontOrNext == 'front' && +this.count<=0) {
+      if (this.frontOrNext === 'front' && +this.count <= 0) {
         //  this.$.toast('已经是第一张');
       }
-      if(this.frontOrNext == 'front' && +this.count > 0){
+      if (this.frontOrNext === 'front' && +this.count > 0) {
         this.count = +this.count - 1;
       }
     }

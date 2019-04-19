@@ -1,7 +1,8 @@
 <template>
   <div class="situation">
     <template v-for="(item, index) in dynamics">
-      <dynamic-item :dynamic="item" @tap="tap(item)" @scan="scan(item)"></dynamic-item>
+      <dynamic-item :dynamic="item" @tap="tap(item)"></dynamic-item>
+      <card-foot :times="item.times"></card-foot>
     </template>
   </div>
 </template>
@@ -10,12 +11,13 @@
   import { Component, Vue, Watch } from 'vue-property-decorator';
   import axios from '@/utils/rest';
   import dynamicItem from '@/components/dynamic-item.vue';
+  import cardFoot from '@/components/card-foot.vue';
   import avatar from '@/assets/1.png';
   import DynamicInterface from '@/interface/dynamic';
   import uris from '@/utils/uris';
   import EventBus from '@/utils/eventBus';
   
-  @Component({components: { dynamicItem }})
+  @Component({components: { dynamicItem, cardFoot }})
   export default class Situation extends Vue {
     private dynamics: DynamicInterface[] = [];
     private mounted() {
@@ -41,9 +43,6 @@
       this.$router.push({
         name: 'detail',
       });
-    }
-    private scan(item: DynamicInterface) {
-      const a = 1;
     }
   }
 </script>

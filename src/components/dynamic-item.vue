@@ -1,37 +1,23 @@
 <template>
   <div class="dynamic-item" @click="$emit('tap')">
-    <header class="header">
-      <img :src="dynamic.avatar"/>
-      <div class="right">
-        <div class="top">
-          <span class="author">{{ dynamic.author }}</span>
-          <img :src="locationImage" />
-          <span class="where">{{ dynamic.where }}</span>
-        </div>
-        <span class="datetime">{{ dynamic.datetime }}</span>
-      </div>
-    </header>
+    <visiting-card :visitingCard="dynamic"></visiting-card>
     <div v-if="dynamic.content" class="content">{{ dynamic.content }}</div>
     <div class="item-logo">
       <scan-image :bigImage="dynamic.images"></scan-image>
       <!--<img :src="dynamic.images[0]" @click.stop="$emit('scan')" />-->
     </div>
-    <div class="foot">
-      <div>{{ dynamic.times }}</div>
-      <div></div>
-    </div>
-  </div>
+   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Dynamic from '@/interface/dynamic';
+import VisitingCardInterface from '@/interface/visitingCard';
 import scanImage from '@/components/scan-image.vue';
-import locationImage from '@/assets/location.png';
+import visitingCard from '@/components/visiting-card.vue';
 
-@Component({components: { scanImage }})
+@Component({components: { scanImage, visitingCard }})
 export default class DynamicItem extends Vue {
-  private locationImage: string = locationImage;
   @Prop() private dynamic!: Dynamic; // 动态信息
 }
 </script>
@@ -89,13 +75,6 @@ export default class DynamicItem extends Vue {
       width:30vw;
       height:30vw;
     }
-  }
-  .foot {
-    display:flex;
-    justify-content: space-between;
-    padding:.4rem 0;
-    font-size:.9rem;
-    color:#999999;
   }
 }
 .scroll {

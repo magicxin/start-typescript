@@ -1,5 +1,5 @@
 <template>
-  <div class="routine">
+  <div class="party-home">
     <template v-for="(item, index) in dynamics">
       <dynamic-item :dynamic="item" @tap="tap(item)"></dynamic-item>
       <card-foot :times="item.times"></card-foot>
@@ -18,7 +18,7 @@
   import EventBus from '@/utils/eventBus';
   
   @Component({components: { dynamicItem, cardFoot }})
-  export default class Routine extends Vue {
+  export default class VillagePartyHome extends Vue {
     private dynamics: DynamicInterface[] = [];
     private mounted() {
       EventBus.$on('onInfinite', (done: any) => {
@@ -48,7 +48,7 @@
 </script>
 
 <style lang="scss">
-  .routine {
+  .party-home {
     
   }
 </style>

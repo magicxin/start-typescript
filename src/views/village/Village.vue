@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="village">
     <load-more :onInfinite="onInfinite">
       <swiper :options="swiperOption" :autoplay="true">
         <swiper-slide class="swiper-slide">
@@ -46,7 +46,7 @@
   ]);
   
   @Component({components: { loadMore }})
-  export default class Home extends Vue {
+  export default class Village extends Vue {
     // swiper 设置选项
     private banner1: string = banner1;
     private banner2: string = banner2;
@@ -61,32 +61,29 @@
     private tabs: any[] = [{
       icon: dynamic,
       name: '乡村动态',
-      route: 'dynamic',
-    }, {
-      icon: routine,
-      name: '村务公开',
-      route: 'routine',
+      route: '/village/dynamic',
     }, {
       icon: party,
       name: '党建之家',
-      route: 'party_home',
+      route: '/village/party_home',
+    }, {
+      icon: routine,
+      name: '乡村振兴',
+      route: '/village/revive',
     }, {
       icon: situation,
-      name: '村委概况',
-      route: 'situation',
+      name: '生态产业',
+      route: '/village/production',
     }, {
       icon: chat,
-      name: '家长里短',
-      route: 'chat',
-    }, {
-      icon: phone,
-      name: '便民电话',
-      route: 'phone',
-    }, {
-      icon: pedia,
-      name: '乡村百科',
-      route: 'pedia',
+      name: '乡村趣谈',
+      route: '/village/fun_chat',
     }];
+    // 监听路由
+    @Watch('route')
+    private onRouteChange(to: object, from: object, next: any) {
+      const a = 1;
+    }
     // 监听 active 变化
     @Watch('active')
     private onActiveChange(val: number, oldVal: number) {
@@ -96,33 +93,27 @@
     // json 结构和 vue 实例暂时写为 any 类型
     private beforeRouteEnter(to: any, from: any, next: any) {
       next((vm: any) => {
-        vm.setActive(to.name);
+        vm.setActive(to.path);
       });
     }
     private mounted() {
       const a = 3;
     }
     private setActive(name: string) {
-      if (name === 'dynamic') {
+      if (name === '/village/dynamic') {
         this.active = 0;
       }
-      if (name === 'routine') {
+      if (name === '/village/party_home') {
         this.active = 1;
       }
-      if (name === 'party_home') {
+      if (name === '/village/revive') {
         this.active = 2;
       }
-      if (name === 'situation') {
+      if (name === '/village/production') {
         this.active = 3;
       }
-      if (name === 'chat') {
+      if (name === '/village/fun_chat') {
         this.active = 4;
-      }
-      if (name === 'phone') {
-        this.active = 5;
-      }
-      if (name === 'pedia') {
-        this.active = 6;
       }
     }
     private changeActive(i: number) {
@@ -135,7 +126,7 @@
 </script>
 
 <style lang="scss">
-  .home {
+  .village {
     .swiper-slide {
       height: 140px;
       img {
@@ -147,7 +138,7 @@
       background:#fff;
     }
   .tab {
-    width:25%;
+    width:20%;
     display:flex;
     flex-direction: column;
     justify-content: center;

@@ -7,8 +7,7 @@ import Home from './views/Home.vue';
 Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       redirect: 'dynamic',
       component: () => import(/* webpackChunkName: "home" */ './views/Home.vue'),
@@ -46,6 +45,36 @@ export default new Router({
       path: '/detail',
       name: 'detail',
       component: () => import(/* webpackChunkName: "home" */ './views/Detail.vue'),
+    },
+    {
+      path: '/village',
+      name: 'village',
+      component: () => import(/* webpackChunkName: "home" */ './views/village/Village.vue'),
+      children: [{ // 乡村动态
+        path: '/village/dynamic',
+        name: 'village_dynamic',
+        component: () => import(/* webpackChunkName: "home" */ './views/village/Dynamic.vue'),
+      }, { // 党建之家
+        path: '/village/party_home',
+        name: 'village_party_home',
+        component: () => import(/* webpackChunkName: "home" */ './views/village/party-home.vue'),
+      }, { // 乡村振兴
+        path: '/village/revive',
+        name: 'revive',
+        component: () => import(/* webpackChunkName: "home" */ './views/village/Revive.vue'),
+      }, { // 生态产业
+        path: '/village/production',
+        name: 'production',
+        component: () => import(/* webpackChunkName: "home" */ './views/village/Production.vue'),
+      }, { // 乡村趣谈
+        path: '/village/fun_chat',
+        name: 'fun_chat',
+        component: () => import(/* webpackChunkName: "home" */ './views/village/fun-chat.vue'),
+      }],
+    }, { // 鉴权
+      path: '/auth',
+      name: 'auth',
+      component: () => import(/* webpackChunkName: "home" */ './views/Auth.vue'),
     },
   ],
 });

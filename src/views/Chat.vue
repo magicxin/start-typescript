@@ -1,17 +1,53 @@
 <template>
   <div class="chat">
-    chat
+    <template v-for="(item, index) in dynamics">
+      <dynamic-item :dynamic="item" @tap="tap(item)"></dynamic-item>
+    </template>
+    <div class="publish">
+      <img :src="publish" />
+      <!--<span>发布</span>-->
+    </div>
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Vue, Watch } from 'vue-property-decorator';
-  import dcll from '@/assets/dcll.png';
+  import axios from '@/utils/rest';
+  import dynamicItem from '@/components/dynamic-item.vue';
+  import cardFoot from '@/components/card-foot.vue';
+  import avatar from '@/assets/1.png';
+  import DynamicInterface from '@/interface/dynamic';
+  import uris from '@/utils/uris';
+  import EventBus from '@/utils/eventBus';
+  import publish from '@/assets/publish.png';
   
-  @Component
+  @Component({components: { dynamicItem, cardFoot }})
   export default class Chat extends Vue {
+    private dynamics: DynamicInterface[] = [];
+    private publish: string = publish;
     private mounted() {
-      const a = 1;
+      EventBus.$on('onInfinite', (done: any) => {
+        const a = 1;
+      });
+      this.getDynamic().then((res) => {
+        // 是否需要确定参数类型
+        this.dynamics = res as DynamicInterface[];
+      });
+    }
+    // 暂时不明确传参
+    private getDynamic(params?: any) {
+      return new Promise((resolve, reject) => {
+        axios.$get(uris.getDynamic, params).then((res) => {
+          resolve(res);
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    }
+    private tap(item: DynamicInterface) {
+      this.$router.push({
+        name: 'detail',
+      });
     }
   }
 </script>
@@ -19,5 +55,19 @@
 <style lang="scss">
   .chat {
     
+  }
+  .publish {
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    bottom: 2rem;
+    img {
+      width:40px;
+      height:40px;
+    }
+    span {
+      background:#fff;
+    }
   }
 </style>

@@ -14,12 +14,13 @@
       @mouseup="onRefresh ? mouseUp($event) : undefined"
       @scroll="(onInfinite || infiniteLoading) ? onScroll($event) : undefined"
        >
-    <div class="scroll-inner"
+    <!-- <div class="scroll-inner"
       :style="{
         transform: 'translate3d(0, ' + top + 'px, 0)',
         webkitTransform: 'translate3d(0, ' + top + 'px, 0)'
       }"
-    >
+    > -->
+    <div class="scroll-inner">
       <div class="pull-to-refresh-layer" v-if="!!onRefresh">
         <slot name="refresh">
           <div class="preloader"></div>
