@@ -1,7 +1,7 @@
 import Vue from 'vue';
 const dMock = Vue.prototype.$mock;
 
-Vue.prototype.$mock.mock(/search/, 'get', {
+Vue.prototype.$mock.mock(/contact\/contactData\/contactListALL.action/, 'get', {
   'code':  200,
   'data|5': [{
     'avatar': dMock.Random.dataImage(),

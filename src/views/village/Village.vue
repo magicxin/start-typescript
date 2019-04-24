@@ -1,6 +1,6 @@
 <template>
   <div class="village">
-    <load-more :onInfinite="onInfinite">
+    <!--<load-more :onInfinite="onInfinite">-->
       <swiper :options="swiperOption" :autoplay="true">
         <swiper-slide class="swiper-slide">
           <img :src="banner1" />
@@ -20,8 +20,8 @@
         </li>
       </ul>
       <router-view></router-view>
-      <div v-if="true" slot="infinite" class="text-center">没有更多数据</div>
-    </load-more>
+      <!--<div v-if="true" slot="infinite" class="text-center">没有更多数据</div>
+    </load-more>-->
   </div>
 </template>
 

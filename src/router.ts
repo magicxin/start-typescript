@@ -42,7 +42,7 @@ export default new Router({
       }],
     },
     {
-      path: '/detail',
+      path: '/detail/:_id',
       name: 'detail',
       component: () => import(/* webpackChunkName: "home" */ './views/Detail.vue'),
     },
@@ -75,6 +75,11 @@ export default new Router({
       path: '/auth',
       name: 'auth',
       component: () => import(/* webpackChunkName: "home" */ './views/Auth.vue'),
+    },
+    { // 发布动态
+      path: '/publish',
+      name: 'publish',
+      component: () => import(/* webpackChunkName: "home" */ './views/Publish.vue'),
     },
   ],
 });

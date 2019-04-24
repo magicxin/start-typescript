@@ -3,11 +3,18 @@ import Vue from 'vue';
 import Rest from '@/interface/rest';
 import axios from 'axios';
 
+axios.interceptors.request.use(function(config) { // 每次请求时会从localStorage中获取token
+    config.headers.usersign = '11';
+  return config;
+}, function(error) {
+  return Promise.reject(error);
+})
+
 class Axios {
   public $get(url: string, data: object) {
     return new Promise((resolve, reject) => {
       axios.get< Rest >(url, data).then((res) => {
-        if (res.data.code === 200) {
+        if (res.data.code === '200') {
           resolve(res.data.data);
         } else {
           reject({
@@ -21,7 +28,7 @@ class Axios {
   public $post(url: string, data: object) {
     return new Promise((resolve, reject) => {
       axios.post< Rest >(url, data).then((res) => {
-        if (res.data.code === 200) {
+        if (res.data.code === '200') {
           resolve(res.data.data);
         } else {
           reject({

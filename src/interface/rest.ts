@@ -1,11 +1,11 @@
 interface Data {
-  code: number;
+  code: string;
   data: any;
   message: string;
 }
 
 export default interface Rest {
-  code: number;
+  code: string;
   data: any;
   message: string;
 }

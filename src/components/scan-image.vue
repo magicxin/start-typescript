@@ -49,15 +49,14 @@
     private goImageReader(count: number, urls: string[]) {
       this.showBig = true;
       document.querySelector('body')!.style.overflow = 'hidden';
-      document.getElementById('$$$scroll')!.style.overflow = 'hidden';
       this.count = count;
       this.urls = urls;
+      console.log(this.urls)
     }
     private closeBig() {
       this.showBig = false;
       document.querySelector('body')!.style.overflow = 'visible';
       document.querySelector('html')!.style.overflow = 'visible';
-      document.getElementById('$$$scroll')!.style.overflow = 'visible';
     }
     private tapStart(e: any) {
       this.startX = e.targetTouches[0].screenX;
@@ -117,7 +116,7 @@
     width:100vw;
     height:100vh;
     background:#000;
-    z-index:1000;
+    z-index:99999;
   }
   .reader-content{
     width:100vw;

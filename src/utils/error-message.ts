@@ -1,6 +1,6 @@
-export default function errorMessage(code: number) {
+export default function errorMessage(code: string) {
   let result = '';
-  if (code === 400) {
+  if (code === '400') {
     result = 'a';
   }
   return result;

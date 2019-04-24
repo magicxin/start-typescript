@@ -52,15 +52,15 @@
     @Prop({default: 0, required: false}) private offset!: number;
     @Prop({type: Function, required: false}) private onRefresh: any;
     @Prop({type: Function, required: false}) private onInfinite: any;
-    private touchStart(e: any) {
+    private touchStart(e: TouchEvent) {
       this.startY = e.targetTouches[0].pageY;
       this.touching = true;
     }
-    private mouseDown(e: any) {
+    private mouseDown(e: MouseEvent) {
       this.startY = e.pageY;
       this.touching = true;
     }
-    private touchMove(e: any) {
+    private touchMove(e: TouchEvent) {
       if (this.$el.scrollTop > 0 || !this.touching) {
         return;
       }
@@ -78,7 +78,7 @@
         this.state = 0;
       }
     }
-    private mouseMove(e: any) {
+    private mouseMove(e: MouseEvent) {
       if (this.$el.scrollTop > 0 || !this.touching) {
         return;
       }
@@ -96,7 +96,7 @@
         this.state = 0;
       }
     }
-    private touchEnd(e: any) {
+    private touchEnd(e: TouchEvent) {
       this.touching = false;
       if (this.state === 2) { // in refreshing
         this.state = 2;
@@ -110,7 +110,7 @@
         this.top = 0;
       }
     }
-    private mouseUp(e: any) {
+    private mouseUp(e: MouseEvent) {
       this.touching = false;
       if (this.state === 2) { // in refreshing
         this.state = 2;

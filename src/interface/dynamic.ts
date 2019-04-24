@@ -6,4 +6,5 @@ export default interface Dynamic {
   times: number; // 浏览次数
   content?: string; // 内容
   images?: string[]; // 图片
+  id: number;
 }
