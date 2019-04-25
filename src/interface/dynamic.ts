@@ -4,6 +4,7 @@ export default interface Dynamic {
   author: string; // 发布者
   where?: string; // 地点
   times: number; // 浏览次数
+  title?: string; // 标题
   content?: string; // 内容
   images?: string[]; // 图片
   id: number;

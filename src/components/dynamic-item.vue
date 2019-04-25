@@ -67,7 +67,6 @@ export default class DynamicItem extends Vue {
     overflow: hidden;
     -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
-   
   }
   .item-logo {
     padding: .6rem 0;

@@ -4,7 +4,7 @@ import Rest from '@/interface/rest';
 import axios from 'axios';
 
 axios.interceptors.request.use(function(config) { // 每次请求时会从localStorage中获取token
-    config.headers.usersign = '11';
+    config.headers.usersign = '691e7a88d758b9ce68842077e1ef0ec9';
   return config;
 }, function(error) {
   return Promise.reject(error);
