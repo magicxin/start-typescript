@@ -69,7 +69,7 @@
       this.$router.push({
         name: 'detail',
         params: {
-          _id: id,
+          _id: id.toString(),
         },
       });
     }

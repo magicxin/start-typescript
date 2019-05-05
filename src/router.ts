@@ -47,6 +47,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "home" */ './views/Detail.vue'),
     },
     {
+      path: '/comment_detail/:_id',
+      name: 'comment_detail',
+      component: () => import(/* webpackChunkName: "home" */ './views/comment-detail.vue'),
+    },
+    {
       path: '/village',
       name: 'village',
       component: () => import(/* webpackChunkName: "home" */ './views/village/Village.vue'),
@@ -60,15 +65,15 @@ export default new Router({
         component: () => import(/* webpackChunkName: "home" */ './views/village/party-home.vue'),
       }, { // 乡村振兴
         path: '/village/revive',
-        name: 'revive',
+        name: 'village_revive',
         component: () => import(/* webpackChunkName: "home" */ './views/village/Revive.vue'),
       }, { // 生态产业
         path: '/village/production',
-        name: 'production',
+        name: 'village_production',
         component: () => import(/* webpackChunkName: "home" */ './views/village/Production.vue'),
       }, { // 乡村趣谈
         path: '/village/fun_chat',
-        name: 'fun_chat',
+        name: 'village_fun_chat',
         component: () => import(/* webpackChunkName: "home" */ './views/village/fun-chat.vue'),
       }],
     }, { // 鉴权
@@ -80,6 +85,11 @@ export default new Router({
       path: '/publish',
       name: 'publish',
       component: () => import(/* webpackChunkName: "home" */ './views/Publish.vue'),
+    },
+    { // 发布评论
+      path: '/send',
+      name: 'send',
+      component: () => import(/* webpackChunkName: "home" */ './views/Send.vue'),
     },
   ],
 });

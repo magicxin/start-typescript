@@ -13,7 +13,7 @@
         </div>
         <div class="right">
           <span>{{ item.phoneNumber }}</span>
-          <span>({{ item.name }})</span>
+          <span v-if="item.name">({{ item.name }})</span>
         </div>
       </div>
     </template>
@@ -92,10 +92,14 @@
         color:#fff;
       }
     }
+    .van-cell {
+      align-items:center;
+    }
     .phone-item {
       display:flex;
       padding:.6rem 1rem;
       border-bottom:1px dashed #dddddd;
+      align-items: center;
       img {
         width:20px;
         height:20px;
@@ -108,6 +112,7 @@
       }
       .right {
         display:flex;
+        align-items: center;
         flex:3;
         span {
           margin-right:1rem;

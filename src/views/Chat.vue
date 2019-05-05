@@ -1,22 +1,34 @@
 <template>
   <div class="chat" v-infinite-scroll="loadMore" :infinite-scroll-disabled="busy">
     <template v-for="(item, index) in dynamics">
-      <dynamic-item :dynamic="item" @tap="tap(item)"></dynamic-item>
+      <dynamic-item :dynamic="item"></dynamic-item>
       <div class="comment-list">
-        <div class="visiting-card">
-          <img :src="publish"/>
-            <div class="right">
-              <div class="top">
-                <span class="author">1</span>
-                <img :src="publish" />
-                <span class="where">222</span>
-              </div>
-              <span class="datetime">333</span>
-            </div>
+        <div class="comment">
+          <span v-if="item.discussList.length === 0">暂无评论</span>
+          <span v-else>共 {{item.discussList.length}} 条评论</span>
+          <img :src="publish" @click="tap(item)"/>
         </div>
+        <template v-for="(obj,i) in item.discussList">
+          <div v-if="i <= 2" class="visiting-card" @click="tap(obj, '1')">
+            <img :src="obj.avatar"/>
+              <div class="right">
+                <div class="top">
+                  <span class="author">{{ obj.author }}</span>
+                  <span class="where">{{ obj.time }}</span>
+                </div>
+                <div>
+                  <template v-if="obj.replyToUserName">
+                    <span>回复</span><span class="blue">@{{obj.replyToUserName}}</span>
+                  </template>  
+                  <span class="datetime">{{ obj.content }}</span>
+                </div>
+              </div>
+          </div>
+        </template>
+        <div class="seemore" v-if="item.discussList.length > 3" @click="routeTo(item.id)">查看更多</div>
       </div>
     </template>
-    <div class="publish" @click="$router.push('publish')">
+    <div class="publish" @click="routeToPublish">
       <img :src="publish" />
       <!--<span>发布</span>-->
     </div>
@@ -68,8 +80,32 @@
         });
       });
     }
-    private tap(item: DynamicInterface) {
-      
+    private tap(item: DynamicInterface,reply: string = '0') {
+      console.log(item)
+      this.$router.push({
+        name: 'send',
+        params: {
+          _id: item.id.toString(),
+          _disId: item.disParentId ? item.disParentId.toString() : '',
+          _reply: reply,
+        },
+      });
+    }
+    private routeTo(id: number) {
+      this.$router.push({
+        name:'comment_detail',
+        params: {
+          _id: id.toString(),
+        },
+      })
+    }
+    private routeToPublish() {
+      this.$router.push({
+        name: 'publish',
+        params: {
+          _id: this.id,
+        },
+      })
     }
   }
 </script>
@@ -98,13 +134,28 @@
       text-align: center;
       background:#F4F4F4;
     }
+    .comment {
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      background:#fff;
+      color:#666666;
+      padding:.4rem 1rem;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+      img {
+        width:1.4rem;
+        height:1.4rem;
+      }
+    }
     .comment-list {
       background:#fff;
     }
     .visiting-card {
       display:flex;
       align-items:center;
-      padding:.6rem 0;
+      padding:.6rem 1rem;
+      border-bottom:1px solid #e5e5e5;
     img {
       width:36px;
       height:36px;
@@ -134,6 +185,12 @@
       display:flex;
       flex-direction: column;
     }
+  }
+  .seemore {
+    display:flex;
+    padding:.6rem 0;
+    justify-content: center;
+    color: #00a4bd;
   }
   }
   

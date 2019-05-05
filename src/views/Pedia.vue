@@ -21,7 +21,7 @@
                 <span>{{ item.times }}</span>
               </div>
             </div>
-            <img class="right" :src="item.images[0]"/>
+            <img v-if="item.images[0]" class="right" :src="item.images[0]"/>
           </div>
         </div>
       </van-tab>

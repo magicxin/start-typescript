@@ -3,7 +3,8 @@
     <visiting-card :visitingCard="dynamic"></visiting-card>
     <div class="container">
       <p class="content">{{ dynamic.content }}</p>
-      <img class="image" :src="dynamic.images[0]"/>
+      <video v-if="dynamic.videos[0]" class="video" :src="dynamic.videos[0]" controls="controls"/>
+      <img v-else-if="dynamic.images[0]" class="image" :src="dynamic.images[0]"/>
     </div>
     <card-foot :times="dynamic.times"></card-foot>
   </div>
@@ -17,12 +18,14 @@
   import cardFoot from '@/components/card-foot.vue';
   import DynamicInterface from '@/interface/dynamic';
   import { makeData } from '@/controller/dynamicDetail';
+  import addTime from '@/controller/addTime';
   
   @Component({components: { visitingCard, cardFoot }})
   export default class Detail extends Vue {
     private dynamic: DynamicInterface = null;
     private mounted() {
       const id = this.$route.params._id;
+      addTime(id);
       this.getDynamicDetail({infoId : id}).then(res => {
         this.dynamic = res;
       });
@@ -49,6 +52,9 @@
       margin-bottom:1rem;
     }
     .image {
+      width:100%;
+    }
+    .video {
       width:100%;
     }
   }

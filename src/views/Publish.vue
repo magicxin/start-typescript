@@ -4,7 +4,7 @@
       <span class="cancel" @click="$router.back()">取消</span>
       <van-button class="sub-btn" @click="publish">发布</van-button>
     </header>
-    <van-field type="textarea" :autosize="autosize" v-model="value" placeholder="请输入内容" />
+    <van-field class="textarea" type="textarea" :autosize="autosize" v-model="value" placeholder="请输入内容" />
     <!--start image container -->
     <div class="img-container clearfix">
       <div class="img-item" v-for="(item, index) in images" :key="index">
@@ -34,7 +34,7 @@
     private value: string = ''; // textarea 内容
     private autosize: any = {minHeight: 100, maxHeight: 250}; // textarea 高度设置
     private images: any[] = [];
-    private columnId: number = 16; // 家长里短栏目id
+    private columnId: number = null; // 家长里短栏目id
     private getFile(e: IHTMLInputEvent) {
       const files: any = e.target.files;
       let blob = null;
@@ -47,14 +47,21 @@
           that.images.push({file: files[0], blob: blob});
         }
     }
+    private mounted() {
+      console.log(this.$route.params._id)
+      this.columnId = this.$route.params._id;
+    }
     private publish() {
       const formData = new FormData();
       formData.append('columnId', this.columnId.toString());
       formData.append('infoContent', this.value);
       formData.append('contentType', '1');
-      formData.append('files', this.images[0].file);
+      if(this.images[0]) {
+        formData.append('files', this.images[0]&&this.images[0].file);
+      }
       this.sendData(formData).then((res) => {
-        console.log(res);
+        this.$router.back();
+        this.$toast('发布成功');
       });
     }
     // 暂时不明确传参
@@ -112,6 +119,10 @@
         object-fit: contain;
         margin-left:.4rem;
       }
+    }
+    .textarea {
+      border: 1px solid #e5e5e5;
+      margin-top:1rem;
     }
   }
 </style>

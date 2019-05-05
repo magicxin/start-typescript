@@ -28,21 +28,6 @@
     private page: number = 0; // 第几页
     private total: number = 0;
     private busy: boolean = true;
-    private mounted() {
-//    EventBus.$on('onInfinite', (done: any) => {
-//      if (this.page - this.total >= -1) {
-//          this.$root.loaded = true;
-//        return;
-//      }else {
-//        this.page++
-//      }
-//      this.getDynamic({columnId: this.id, pageRows: this.pageRows, page: this.page}).then((res) => {
-//        // 是否需要确定参数类型
-//        this.dynamics = this.dynamics.concat(res.result as DynamicInterface[]);
-//        done();
-//      });
-//    });
-    }
     private loadMore() {
       this.busy = true;
       if (this.total > 0 && this.page - this.total >= -1) {
