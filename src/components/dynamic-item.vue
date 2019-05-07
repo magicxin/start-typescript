@@ -1,7 +1,7 @@
 <template>
   <div class="dynamic-item" @click="$emit('tap')">
     <visiting-card :visitingCard="dynamic"></visiting-card>
-    <div v-if="dynamic.content" class="content">{{ dynamic.content }}</div>
+    <div v-if="dynamic.title" class="title">{{ dynamic.title }}</div>
     <div class="item-logo">
       <scan-image :bigImage="dynamic.images"></scan-image>
       <!--<img :src="dynamic.images[0]" @click.stop="$emit('scan')" />-->
@@ -62,7 +62,7 @@ export default class DynamicItem extends Vue {
       flex-direction: column;
     }
   }
-  .content {
+  .title {
     display: -webkit-box;
     overflow: hidden;
     -webkit-line-clamp: 2; 

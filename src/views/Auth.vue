@@ -25,10 +25,10 @@
       msgFilter(msg) {
       if (!msg) return;
         if(msg.indexOf('name') > -1) {
-          return '姓名是必须的';
+          return '姓名不能为空';
         }
         if(msg.indexOf('card') > -1) {
-          return '身份证是必须的';
+          return '身份证不能为空';
         }
       }
     }

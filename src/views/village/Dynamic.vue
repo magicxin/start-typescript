@@ -48,7 +48,7 @@
       if (this.total > 0 && this.page - this.total >= -1) {
         return;
       }
-      this.getDynamic({columnId: this.id, pageRows: this.pageRows, page: this.page++}).then((res) => {
+      this.getDynamic({columnId: this.id, pageRows: this.pageRows, page: this.page++, isOpen: 1}).then((res) => {
         // 是否需要确定参数类型
         this.dynamics = this.dynamics.concat(res.result as DynamicInterface[]);
         this.total = res.total;

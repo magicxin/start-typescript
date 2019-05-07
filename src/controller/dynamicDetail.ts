@@ -18,6 +18,7 @@ function makeData(res: any): any {
       author: res.author, // 发布者
       where: res.orgName, // 地点
       times: res.readNum + '次观看', // 浏览次数
+      title: item.infoTitle, // 标题
       content: res.infoContent, // 内容
       images: res.pictureList.length > 0 ? [this.addPath(res.pictureList[0].filePath)] : [], // 图片
       videos: res.videoList.length > 0 ? [this.addPath(res.videoList[0].filePath)] : [], // 图片
